@@ -1,3 +1,0 @@
-/Users/princendhlovu/Desktop/20s-pa02-autoindexer-Algorithms98/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/princendhlovu/Desktop/20s-pa02-autoindexer-Algorithms98/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/princendhlovu/Desktop/20s-pa02-autoindexer-Algorithms98/cmake-build-debug/CMakeFiles/AutoIndexer.dir
