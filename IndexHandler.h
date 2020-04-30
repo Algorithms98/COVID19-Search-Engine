@@ -24,6 +24,7 @@ private:
     IndexInterface* index;
     vector<string> articleFiles;
     AVLTree<Words> words;
+    DocumentParser parse;
 
 public:
     IndexHandler();
@@ -34,32 +35,13 @@ public:
     vector<string>  getArticleFiles();
     void getTopWords();
     int getNumOfArticles();
-   // void getIndex();
+
     void displayStatistics();
 
 
-    void chooseIndex(DocumentProcessor,string);
+    void chooseIndex(DocumentParser,string);
 
     void addToIndex();
-
-
-    /*
-    bool doesIndexExist();
-    void writeToIndex();
-    void readFromIndex(IndexInterface*index);
-    void chooseIndex();
-    bool doesIndexExist(); */
-
-
-
-
-
-
-
-
-
-
-
 
 
 };

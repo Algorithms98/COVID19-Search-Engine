@@ -10,13 +10,15 @@
 #include <stdexcept>
 #include <fstream>
 
+using namespace std;
+
 template <class T>
 class AVLTree {
 
 private:
     template <class P>
     class AVLNode {
-    private:
+    public:
         AVLNode *left;
         AVLNode *right;
         int height = 0;
@@ -65,14 +67,14 @@ private:
         int treeHeight(AVLNode<T>*);
         void doubleRotateRightChild(AVLNode<T>*&);
         void doubleRotateLeftChild(AVLNode<T>*&);
-        void rotateLeftChild(AVLNodeT>*&);
+        void rotateLeftChild(AVLNode<T>*&);
         void rotateRightChild(AVLNode<T>*&);
         void destroyTree(AVLNode<T>*);
         void insert(T, AVLNode<T>*&);
         void displayInOrder(AVLNode<T>*&, ostream&);
         T& find(T, AVLNode<T>*);
         void totalNodes(AVLNode<T>*);
-        void parseInOrder(AVLNode<T>*);
+        //void parseInOrder(AVLNode<T>*);
         AVLNode<T>* copy(AVLNode<T>*&);
         bool contains(T, AVLNode<T>*);
         void printInOrder(AVLNode<T>*);
@@ -121,12 +123,12 @@ AVLTree<T>::AVLTree(AVLTree & obj) {
 }
 
 template <class T>
-AVLTree::~AVLTree() {
+AVLTree<T>::~AVLTree() {
     destroyTree();
 }
 
 template <class T>
-AVLTree<T>& AVLTree::operator=(AVLTree<T> & obj) {
+AVLTree<T>& AVLTree<T>::operator=(AVLTree<T> & obj) {
 
     if(this != &obj){
         destroyTree();
@@ -136,7 +138,11 @@ AVLTree<T>& AVLTree::operator=(AVLTree<T> & obj) {
 }
 
 template <class T>
-AVLTree<T>::AVLNode<T>* AVLTree::copy(AVLTree::AVLNode<T> *& avlNode) {
+typename AVLTree<T>::template AVLNode<T>* AVLTree<T>::copy(AVLNode<T> *& avlNode) {
+//AVLTree<T>::AVLNode<T>* AVLTree<T>::copy(AVLTree::AVLNode<T> *& avlNode) {
+
+  //  template<typename T>
+  //  typename DSAVLTree<T>::template AVLNode<T>* DSAVLTree<T>::copy(AVLNode<T>*& node)
     if(avlNode != nullptr){
         AVLNode<T>* copyleft = copy(avlNode->left);
         AVLNode<T>* copyright = copy(avlNode->right);
@@ -152,7 +158,7 @@ void AVLTree<T>::destroyTree() {
 }
 
 template <class T>
-void AVLTree::destroyTree(AVLNode<T> * avlNode) {
+void AVLTree<T>::destroyTree(AVLNode<T> * avlNode) {
     AVLNode<T> *curr;
     if(avlNode != nullptr){
         if(avlNode->left != nullptr){
@@ -167,6 +173,7 @@ void AVLTree::destroyTree(AVLNode<T> * avlNode) {
     avlNode = nullptr;
 }
 
+/*
 template <class T>
 void AVLTree<T>::destroyTree(AVLNode<T> * avlNod) {
     AVLNode<T>* curr;
@@ -182,16 +189,16 @@ void AVLTree<T>::destroyTree(AVLNode<T> * avlNod) {
         delete avlNod;
     }
     avlNod = nullptr;
-}
+} */
 
 template <class T>
-void AVLTree::insert(T i) {
+void AVLTree<T>::insert(T i) {
 
     insert(i,root);
 }
 
 template <class T>
-void AVLTree::insert(T value, AVLTree::AVLNode<T> *& node) {
+void AVLTree<T>::insert(T value, AVLTree::AVLNode<T> *& node) {
 
     if(node == nullptr) {
         node = new AVLNode<T>(value);
@@ -222,7 +229,7 @@ void AVLTree::insert(T value, AVLTree::AVLNode<T> *& node) {
     node->height = maxValue(treeHeight(node->left), treeHeight(node->right)) + 1;
 }
 template <class T>
-bool AVLTree::isEmpty() {
+bool AVLTree<T>::isEmpty() {
 
     if(root == nullptr){
         return true;
@@ -234,14 +241,14 @@ bool AVLTree::isEmpty() {
 }
 
 template <class T>
-bool AVLTree::contains(T i) {
+bool AVLTree<T>::contains(T i) {
 
-    return contains(data, root);
+    return contains(i, root);
 
 }
 
 template <class T>
-bool AVLTree::contains(T value, AVLNode<T> * node) {
+bool AVLTree<T>::contains(T value, AVLNode<T> * node) {
 
     while(node != nullptr ){
         if(value < node->data){
@@ -258,14 +265,14 @@ bool AVLTree::contains(T value, AVLNode<T> * node) {
 }
 
 template <class T>
-T& AVLTree::find(T i) {
+T& AVLTree<T>::find(T i) {
 
     return find(i, root);
 
 }
 
 template <class T>
-T& AVLTree::find(T value, AVLNode<T> * node) {
+T& AVLTree<T>::find(T value, AVLNode<T> * node) {
 
     while(node != nullptr ){
         if(value < node->data){
@@ -293,14 +300,14 @@ void AVLTree<T>::displayInOrder(AVLTree<T>::AVLNode<T> *& avlNode, ostream & out
 
 }
 template <class T>
-void AVLTree::displayInOrder(ostream & outputFile) {
+void AVLTree<T>::displayInOrder(ostream & outputFile) {
 
     displayInOrder(root, outputFile);
 
 }
 
 template <class T>
-int AVLTree::maxValue(int leftSubTree, int rightSubTree){
+int AVLTree<T>::maxValue(int leftSubTree, int rightSubTree){
 
     if(leftSubTree > rightSubTree){
         return leftSubTree;
@@ -310,7 +317,7 @@ int AVLTree::maxValue(int leftSubTree, int rightSubTree){
 
 }
 template <class T>
-int AVLTree::treeHeight(AVLTree::AVLNode<T> * avlNode) {
+int AVLTree<T>::treeHeight(AVLTree::AVLNode<T> * avlNode) {
 
     if(avlNode == nullptr){
         cout << "AVL TREE IS EMPTY \n";
@@ -323,20 +330,20 @@ int AVLTree::treeHeight(AVLTree::AVLNode<T> * avlNode) {
 
 }
 template <class T>
-void AVLTree::doubleRotateRightChild(AVLTree::AVLNode<T> *& avlNode) {
+void AVLTree<T>::doubleRotateRightChild(AVLTree::AVLNode<T> *& avlNode) {
 
     rotateLeftChild(avlNode->right);
     rotateRightChild(avlNode);
 }
 template <class T>
-void AVLTree::doubleRotateLeftChild(AVLTree::AVLNode<T> *& avlNode) {
+void AVLTree<T>::doubleRotateLeftChild(AVLTree::AVLNode<T> *& avlNode) {
 
     rotateRightChild(avlNode->left);
     rotateLeftChild(avlNode);
 }
 
 template <class T>
-void AVLTree::rotateLeftChild(AVLNode<T>*& avlNode) {
+void AVLTree<T>::rotateLeftChild(AVLNode<T>*& avlNode) {
 
     AVLNode<T> *node = avlNode->left;
 
@@ -349,7 +356,7 @@ void AVLTree::rotateLeftChild(AVLNode<T>*& avlNode) {
 }
 
 template <class T>
-void AVLTree::rotateRightChild(AVLTree::AVLNode<T> *& avlNode) {
+void AVLTree<T>::rotateRightChild(AVLTree::AVLNode<T> *& avlNode) {
 
     AVLNode<T>* node = avlNode->right;
 
@@ -364,14 +371,14 @@ void AVLTree::rotateRightChild(AVLTree::AVLNode<T> *& avlNode) {
 
 
 template <class T>
-void AVLTree::parseWords() {
+void AVLTree<T>::parseWords() {
 
     parseWords(root);
 
 }
 
 template <class T>
-void AVLTree::parseWords(AVLTree::AVLNode<T> * node) {
+void AVLTree<T>::parseWords(AVLTree::AVLNode<T> * node) {
 
     if(node != nullptr){
         parseWords(node->left);
@@ -386,7 +393,7 @@ void AVLTree::parseWords(AVLTree::AVLNode<T> * node) {
 
 }
 template <class T>
-void AVLTree::totalNodes(AVLNode<T>* node){
+void AVLTree<T>::totalNodes(AVLNode<T>* node){
 
     AVLNode<T>* tmpL = node;
     AVLNode<T>* tmpR = node;
@@ -408,12 +415,12 @@ void AVLTree::totalNodes(AVLNode<T>* node){
 }
 
 template <class T>
-int AVLTree::getTotalNodes() {
+int AVLTree<T>::getTotalNodes() {
     return numOfNodes;
 }
 
 template <class T>
-void AVLTree::printInOrder(AVLNode<T>* avlNode){
+void AVLTree<T>::printInOrder(AVLNode<T>* avlNode){
 
     if(avlNode != nullptr){
         printInOrder(avlNode->left);
@@ -427,12 +434,12 @@ void AVLTree::printInOrder(AVLNode<T>* avlNode){
 }
 
 template <class T>
-void AVLTree::printInOrder() {
+void AVLTree<T>::printInOrder() {
     printInOrder(root);
 }
 
 template <class T>
-void AVLTree<T>::setPersistent(AVLTree<T>::AVLNode<T> * node) {
+ostream& AVLTree<T>::setPersistent(AVLTree<T>::AVLNode<T> * node) {
 
     ofstream file;
     file.open("Filename.txt");

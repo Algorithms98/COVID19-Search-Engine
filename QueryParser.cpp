@@ -48,7 +48,7 @@ queue<string> & QueryParser::getUserInput() {
 
 }
 
-void & QueryParser::clearQ(queue <string> & q) {
+void  QueryParser::clearQ(queue <string> & q) {
 
     while (!q.empty()){
         q.pop();

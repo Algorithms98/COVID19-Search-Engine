@@ -15,22 +15,18 @@ IndexInterface* IndexHandler::getIndexPtr() {
     return index;
 }
 
-/*
-void IndexHandler::getIndex() {
-} */
-
 void IndexHandler::addToIndex() {
 
-    DocumentParser parser;
+    //DocumentParser parser;
     index = new AVLIndex;
-    parser.setIndex(index);
-   parser.readDirectory();
+    parse.setIndex(index);
+   parse.readDirectory();
 
-  numOfIndexedWords = parser.getNumOfIndexedWords();
-  numOfArtArticles = parser.getNumOfArticles();
-  numOfWordsTotal = parser.getNumOfTotalWords();
+  numOfIndexedWords = parse.getNumOfIndexedWords();
+  numOfArtArticles = parse.getNumOfArticles();
+  numOfWordsTotal = parse.getNumOfTotalWords();
 
-  writeToIndex(parser.getWords());
+  writeToIndex(parse.getWords());
 }
 
 void IndexHandler::cleanIndex() {
@@ -93,7 +89,7 @@ void IndexHandler::writeToIndex(AVLTree<Words> & querries) {
     filename << numOfIndexedWords << endl;
     filename << numOfWordsTotal << endl;
 
-    words.displayInOrder(filename);
+    querries.displayInOrder(filename);
     filename.close();
 
 }

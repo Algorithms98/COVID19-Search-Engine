@@ -7,7 +7,7 @@
 #include "DocumentParser.h"
 #include "QueryParser.h"
 #include "UserInterface.h"
-using std namespace;
+using namespace std;
 
 int main(int argc, char* argv[])
 {

@@ -9,7 +9,7 @@
 #include <vector>
 #include <iomanip>
 #include <functional>
-
+using namespace std;
 
 
 template <class T, class P>
@@ -104,7 +104,7 @@ HashTable<T, P>& HashTable<T, P>::operator=(HashTable &obj) {
 
     dataList = new vector<P>[size];
     for(int i = 0; i < size; i++){
-        dataList[i] = obj.dataList
+        dataList[i] = obj.dataList;
     }
     return *this;
 }
@@ -117,9 +117,9 @@ HashTable<T, P> ::~HashTable() {
 }
 
 template <class T, class P>
-P& HashTable::find(T keyNum) {
+P& HashTable<T, P>::find(T keyNum) {
 
-    int num = hash<K>()(keyNum) % size;
+    int num = hash<T>()(keyNum) % size;
     for(int i = 0; i < dataList[num].size(); i++){
 
         if(dataList[num][i].getKey() == keyNum){
@@ -130,7 +130,7 @@ P& HashTable::find(T keyNum) {
 }
 
 template <class T, class P>
-void HashTable::insert(T newKey, P newVal){
+void HashTable<T, P>::insert(T newKey, P newVal){
 
     int num = hash<T>()(newKey) % size;
     data obj(newKey);
@@ -140,7 +140,7 @@ void HashTable::insert(T newKey, P newVal){
 }
 
 template <class T, class P>
-bool HashTable::contains(T keyVal) {
+bool HashTable<T, P>::contains(T keyVal) {
 
     int num = hash<T>()(keyVal) % size;
     for(int i = 0; i < dataList[num].size(); i++){
@@ -152,12 +152,12 @@ bool HashTable::contains(T keyVal) {
 }
 
 template <class T, class P>
-int HashTable::getSize() {
+int HashTable<T, P>::getSize() {
 
     return size;
 }
 template <class T, class P>
-bool HashTable::isEmpty() {
+bool HashTable<T, P>::isEmpty() {
 
     for(int i = 0; i < size; i++){
         if(dataList[i].size() != 0){
@@ -168,7 +168,7 @@ bool HashTable::isEmpty() {
 
 }
 template <class T, class P>
-void HashTable::display() {
+void HashTable<T,P>::display() {
 
     for(int i = 0; i < size; i ++){
         for(int j = 0; j < dataList[i].size(); j++){
@@ -178,7 +178,7 @@ void HashTable::display() {
 
 }
 template <class T, class P>
-int HashTable::getIndexValue(T keyVal) {
+int HashTable<T,P>::getIndexValue(T keyVal) {
 
     int num = hash<T>()(keyVal) % size;
     return num;
@@ -186,7 +186,7 @@ int HashTable::getIndexValue(T keyVal) {
 }
 
 template <class T, class P>
-int HashTable::getIndexKey(T keyNum) {
+int HashTable<T,P>::getIndexKey(T keyNum) {
 
     int num = hash<T>()(keyNum) % size;
     for(int i = 0; i < dataList[num].size(); i++){

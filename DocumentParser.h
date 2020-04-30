@@ -7,6 +7,7 @@
 
 #include "AVLTree.h"
 #include "Words.h"
+#include "AVLIndex.h"
 #include "IndexInterface.h"
 #include <unordered_map>
 #include <unordered_set>
@@ -39,7 +40,7 @@ public:
     int getNumOfTotalWords();
     void readDirectory();
     void parseArticles(const string, const string);
-    AVLTree<Words> getWords();
+    AVLTree<Words>& getWords();
     string getFilePath();
     string& loweringString(string&) const ;
     void displayStatistics();
@@ -47,14 +48,10 @@ public:
     void setStopWords();
     unordered_set<string> getStopWords();
     void setIndex(IndexInterface*);
-
-    string cleanWords(string &) const;
+    string cleanWords(string &) ;
     int getAveOfIndexedWords();
-    void stemmingStrings(string &) const;
+    void stemmingStrings(string &) ;
 
-    void search(const string& ); //search for the demo
-
-    vector<string> getFiles();
 };
 
 

@@ -7,11 +7,12 @@
 #include "Porter2_Stemmer.h"
 #include <sstream>
 #include <algorithm>
-#include <vetcor>
+#include <vector>
 #include <string>
 #include <dirent.h>
 #include <iostream>
-#include "../parser.hpp"
+#include "parser.hpp"
+//#include "../parser.hpp"
 
 using namespace std;
 using nlohmann::json;
@@ -82,7 +83,8 @@ void DocumentParser::readDirectory() {
 void DocumentParser::parseArticles(const string fileDirectory , const string filePath) {
 
     ifstream articles(fileDirectory);
-    string temp
+    string temp;
+    string text;
     if(!articles.is_open()){
         cout << "The file path does not exist \n";
     }
@@ -121,8 +123,8 @@ void DocumentParser::parseArticles(const string fileDirectory , const string fil
 
 }
 
-AVLTree<Words> DocumentParser::getWords() {
-    return wordsTree
+AVLTree<Words>& DocumentParser::getWords() {
+    return wordsTree;
 }
 
 string DocumentParser::getFilePath() {
@@ -132,7 +134,7 @@ string DocumentParser::getFilePath() {
 // inserting parsed words into the AVL tree
 void DocumentParser::insertTreeWord(string name, string fileName) {
 
-    if(!stopWords.contains(name)){
+    if(!(stopWords.count(name) > 0)){
         Words curr(name, fileName);
         if(curr.getQuery() != ""){
             if(!wordsTree.contains(curr)){
@@ -176,7 +178,7 @@ int DocumentParser::getAveOfIndexedWords() {
 
 }
 
-void DocumentParser::stemmingStrings( string& word) const{
+void DocumentParser::stemmingStrings( string& word) {
 
     string key = word;
 
@@ -199,7 +201,7 @@ string & DocumentParser::loweringString(string & entry) const {
     return entry;
 
 }
-string DocumentParser::cleanWords(string & entry) const {
+string DocumentParser::cleanWords(string & entry)  {
     string temp = entry;
     if(entry.size() == 0){
         return entry;
@@ -214,7 +216,7 @@ string DocumentParser::cleanWords(string & entry) const {
         return temp;
     }
 
-    if(stopWords.contains(temp)){
+    if(stopWords.count(temp) > 0){
         return "";
     }
 
@@ -223,18 +225,8 @@ string DocumentParser::cleanWords(string & entry) const {
 
 }
 
-void DocumentParser::search(const string & entry) {
-
-    cout << "Searching for the word: " << entry << endl;
-
-    Words searchWord = cleanWords(entry);
-
-    cout << "Results: " << endl;
-    //cout << "Total number of nodes in tree is: " << wordsTree
 
 
-
-}
 
 void DocumentParser::setIndex(IndexInterface * indx) {
 

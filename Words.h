@@ -8,7 +8,7 @@
 #include <ostream>
 #include <iostream>
 #include "Porter2_Stemmer.h"
-#include "AVLIndex.h"
+//#include "AVLIndex.h"
 #include <fstream>
 #include <locale>
 #include <algorithm>
@@ -21,7 +21,7 @@ using namespace Porter2Stemmer;
 
 class Words {
 
-    friend ostream&operator<<(ostream&, const Words&);
+    friend ostream& operator<<(ostream&, const Words&);
 
 private:
     string text;

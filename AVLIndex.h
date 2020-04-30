@@ -5,9 +5,13 @@
 #ifndef CS2341_SEARCHENGINE_ALGORITHMS98_AVLINDEX_H
 #define CS2341_SEARCHENGINE_ALGORITHMS98_AVLINDEX_H
 
+#include "iostream"
 #include "IndexInterface.h"
 #include "AVLTree.h"
 #include "Words.h"
+
+using namespace std;
+
 
 
 //Child class that inherits IndexInterface and links AVLTree with IndexInterface
@@ -24,16 +28,7 @@ public:
     bool hasElement(string);
     void parseWords();
     void displayWords();
-    virtual setPersistent();
-
-
-
-
-
-
-
-
-
+    virtual void setPersistent();
 
 };
 

@@ -88,13 +88,13 @@ bool Words::operator>(const Words & query) {
     return text > query.text;
 }
 
-ostream & Words::operator<<(ostream & output, const Words & querry) {
+ostream& operator<<(ostream & buffer, const Words & querry) {
 
-    output << querry.text << querry.file.size();
-    for(pair<string, int> loc; querry.file){
-        output << loc.second << " " << loc.first << endl;
+    buffer << querry.text << querry.file.size();
+    for(pair<string, int> loc: querry.file){
+        buffer << loc.second << " " << loc.first << endl;
     }
-    return output;
+    return buffer;
 }
 
 bool Words::operator==(const Words & query) {
@@ -103,7 +103,7 @@ bool Words::operator==(const Words & query) {
 int Words::fileLocation(string fileName) {
 
     for(int i =0; i< file.size(); i++){
-        if(file[i].first == file){
+        if(file[i].first == fileName){
             return i;
         }
     }

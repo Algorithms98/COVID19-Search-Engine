@@ -36,13 +36,12 @@ public:
     void getQuery();
     void displayResults(vector<pair<string, int>>);
     vector<pair<string,int>> pullRequests(string);
-    void display(vector<pair<string,int>>);
     void PrinceRank(vector<pair<string,int>>);
     void simpleSearch(string);
 
     vector<pair<string, int>> andSearch(vector<pair<string, int>>&, vector<pair<string, int>>&);
-    vector<pair<string, int>> orSearch(vector<pair<string, int>>, vector<pair<string, int>>&);
-    vector<pair<string, int>> notSearch(vector<pair<string, int>>, vector<pair<string, int>>&);
+    vector<pair<string, int>> orSearch(vector<pair<string, int>>&, vector<pair<string, int>>&);
+    vector<pair<string, int>> notSearch(vector<pair<string, int>>&, vector<pair<string, int>>&);
 
 
 

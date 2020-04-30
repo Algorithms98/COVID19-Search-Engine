@@ -9,7 +9,8 @@
 #include "StopWords.h"
 #include "Words.h"
 #include <queue>
-#include <stringstream>
+#include <sstream>
+#include <iostream>
 
 
 class QueryParser {

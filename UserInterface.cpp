@@ -10,7 +10,7 @@ int UserInterface::loadData() {
     cout << "1: Add articles into the index \n";
     cout << "2: Clear all the data in the index \n";
     cout << "3: Exit from the current menu \n";
-    cout < "Your move \n";
+    cout << "Your move \n";
 
     int choice;
     cin >> choice;
@@ -48,13 +48,14 @@ void UserInterface::searchEngine() {
 
     IndexHandler indexH;
     int option = operationMode();
+    int choice;
 
     while (option != 3){
         switch (option){
 
             case 1:
 
-                int choice = loadData();
+                 choice = loadData();
 
                 while(choice != 3){
                     if(choice == 1) {
@@ -71,11 +72,11 @@ void UserInterface::searchEngine() {
                    // choice = loadData();
 
                 }
-               // break;
+                break;
                 //choice = loadData();
 
             case 2:
-                int choice = searchArticles();
+                 choice = searchArticles();
 
                 while (choice != 3){
 
@@ -95,7 +96,7 @@ void UserInterface::searchEngine() {
             default:
                 cout << "Please enter a valid menu option 1-3 \n";
                 option = operationMode();
-                //break;
+                break;
 
         }
     }

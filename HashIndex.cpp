@@ -16,7 +16,7 @@ bool HashIndex::hasElement(string word) {
     return words.contains(word);
 }
 
-Words& HashIndex::wordLocation(string) {
+Words& HashIndex::wordLocation(string word) {
     return words.find(word);
 }
 

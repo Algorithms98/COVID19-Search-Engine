@@ -40,11 +40,11 @@ void SearchEngine::andLogic() {
         }
         userQuery.pop();
     }
-    display(final);
+    displayResults(final);
 
 }
 
-void SearchEngine::PrinceRank(vector < string, int > < pair > articles) {
+void SearchEngine::PrinceRank(vector < pair <string, int > > articles) {
     for(pair<string, int> doc : articles ){
 
         int termFreq = doc.second;
@@ -83,7 +83,7 @@ void SearchEngine::orLogic() {
         }
         userQuery.pop();
     }
-    display(final);
+    displayResults(final);
 
 }
 
@@ -115,7 +115,7 @@ void SearchEngine::notLogic() {
         }
         userQuery.pop();
     }
-    display(final);
+    displayResults(final);
 
 }
 
@@ -136,10 +136,10 @@ void SearchEngine::getQuery() {
     if(userQuery.size() == 1){
         vector<pair<string, int>> v;
         if(hasWord(userQuery.front())){
-            v = getQuery(userQuery.front());
+            v = pullRequests(userQuery.front());
         }
         userQuery.pop();
-        display(v);
+        displayResults(v);
     }
     else if(userQuery.front() == "not"){
         notLogic();
@@ -153,19 +153,15 @@ void SearchEngine::getQuery() {
 
 }
 
-void SearchEngine::display(vector < string, int > < pair > ) {
+vector<pair <string, int>> SearchEngine::pullRequests(string article) {
 
-}
-
-vector<string, int><pair> SearchEngine::pullRequests(string article) {
-
-    Words file = index->find(article);
+    Words file = index->wordLocation(article);
 
     return file.getFiles();
 
 }
 
-void SearchEngine::displayResults(vector < string, int > < pair > info ) {
+void SearchEngine::displayResults(vector <pair< string, int > > info ) {
 
     if(!info.empty()){
 
@@ -205,15 +201,15 @@ void SearchEngine::simpleSearch(string article) {
 
 }
 
-vector<string, int><pair> SearchEngine::andSearch(vector < string, int > < pair > & final, vector < string,
-                                                  int > < pair > & initial) {
+vector< pair <string, int>> SearchEngine::andSearch(vector < pair <string, int >  > & final, vector < pair <string,
+                                                  int > > & initial) {
 
     vector<pair<string, int>> andVector;
     for(int i = 0; i < final.size(); i++){
         for(int j = 0; j < initial.size(); j ++){
             if(final[i].first == initial[j].first){
                 final[i].second = initial[j].second + final[i].second;
-                andVector.push_back(make_pair(final[i].first, final[i].second))
+                andVector.push_back(make_pair(final[i].first, final[i].second));
             }
         }
     }
@@ -221,7 +217,7 @@ vector<string, int><pair> SearchEngine::andSearch(vector < string, int > < pair 
     return andVector;
 }
 
-vector<string, int><pair> SearchEngine::orSearch(vector < string, int > < pair > & final, vector < string, int > < pair > & initial) {
+vector<pair <string, int>> SearchEngine::orSearch(vector < pair <string, int >  > & final, vector < pair <string, int >  > & initial) {
 
     for(int i = 0; i < final.size(); i++){
         for(int j = 0; j < initial.size(); j ++){
@@ -240,8 +236,8 @@ vector<string, int><pair> SearchEngine::orSearch(vector < string, int > < pair >
 
 }
 
-vector<string, int><pair> SearchEngine::notSearch(vector < string, int > < pair >& final , vector < string,
-                                                  int > < pair > & initial) {
+vector<pair <string, int>> SearchEngine::notSearch(vector < pair <string, int >  >& final , vector < pair< string,
+                                                  int > > & initial) {
 
     for(int i = 0; i < final.size(); i++){
         for(int j = 0; j < initial.size(); j ++){

@@ -16,9 +16,8 @@ public:
     virtual Words& wordLocation(string) = 0;
     virtual bool hasElement(string) = 0;
     virtual ~IndexInterface() = default;
-
-    virtual parseWords() = 0;
-    virtual setPersistent() = 0;
+    virtual void  parseWords() = 0;
+    virtual void setPersistent() = 0;
 
 
 };

@@ -4,7 +4,7 @@
 
 #include "AVLIndex.h"
 
-void AVLIndex::addWords(Words weds) {
+void AVLIndex::addWord(Words weds) {
 
     words.insert(weds);
 }
