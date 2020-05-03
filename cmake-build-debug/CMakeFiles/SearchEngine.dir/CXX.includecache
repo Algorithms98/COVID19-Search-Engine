@@ -25,6 +25,8 @@ stdexcept
 -
 fstream
 -
+stdlib.h
+-
 
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/DocumentParser.h
 AVLTree.h
@@ -33,12 +35,16 @@ Words.h
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/Words.h
 AVLIndex.h
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/AVLIndex.h
+HashTable.h
+/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/HashTable.h
 IndexInterface.h
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/IndexInterface.h
 unordered_map
 -
 unordered_set
 -
+StopWords.h
+/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/StopWords.h
 
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/HashTable.h
 iostream
@@ -92,10 +98,6 @@ sstream
 iostream
 -
 
-/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/SearchEngine.cpp
-SearchEngine.h
-/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/SearchEngine.h
-
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/SearchEngine.h
 DocumentParser.h
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/DocumentParser.h
@@ -133,6 +135,8 @@ QueryParser.h
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/QueryParser.h
 AVLTree.h
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/AVLTree.h
+stdlib.h
+-
 
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/Words.h
 ostream
@@ -151,18 +155,4 @@ vector
 -
 utility
 -
-
-/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/main.cpp
-iostream
--
-SearchEngine.h
-/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/SearchEngine.h
-IndexHandler.h
-/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/IndexHandler.h
-DocumentParser.h
-/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/DocumentParser.h
-QueryParser.h
-/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/QueryParser.h
-UserInterface.h
-/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/UserInterface.h
 

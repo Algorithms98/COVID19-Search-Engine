@@ -46,10 +46,14 @@ int UserInterface::operationMode() {
 
 void UserInterface::searchEngine() {
 
-    IndexHandler indexH;
+   // cout << "before index \n";
+   // IndexHandler indexH;
+   // cout << "after index \n";
+   // system("read -n 1 -s -p \"Press any key to continue...\"");
+    cout << endl ;
     int option = operationMode();
     int choice;
-
+   IndexHandler indexH;
     while (option != 3){
         switch (option){
 
@@ -58,6 +62,7 @@ void UserInterface::searchEngine() {
                  choice = loadData();
 
                 while(choice != 3){
+                    //IndexHandler indexH;
                     if(choice == 1) {
                         indexH.addToIndex();
                         break;
@@ -67,7 +72,7 @@ void UserInterface::searchEngine() {
                     } else{
                         cout << "Please enter a valid menu option 1-3 \n";
                         choice = loadData();
-                        break;
+                       // break;
                     }
                    // choice = loadData();
 
@@ -79,6 +84,7 @@ void UserInterface::searchEngine() {
                  choice = searchArticles();
 
                 while (choice != 3){
+                   // IndexHandler indexH;
 
                     if(choice == 1){
                         SearchEngine searchE(indexH.getIndexPtr(), indexH.getNumOfArticles());
@@ -100,4 +106,5 @@ void UserInterface::searchEngine() {
 
         }
     }
+
 }

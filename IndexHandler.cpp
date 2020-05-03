@@ -6,11 +6,13 @@
 
 IndexHandler::IndexHandler() {
 
-    numOfArtArticles = numOfIndexedWords = numOfWordsTotal =0;
+    numOfArtArticles = 0;
+    numOfIndexedWords = 0;
+    numOfWordsTotal =0;
 
 }
 
-IndexInterface* IndexHandler::getIndexPtr() {
+IndexInterface*& IndexHandler::getIndexPtr() {
 
     return index;
 }
@@ -31,13 +33,13 @@ void IndexHandler::addToIndex() {
 
 void IndexHandler::cleanIndex() {
 
-    filename.open("thatfile.txt");
+    filename.open("IndexFile.txt");
 
     if(!filename.is_open()){
         cout << "Could not open the file \n";
     } else{
 
-        if(remove("thatfile.txt") != 0){
+        if(remove("IndexFile.txt") != 0){
             perror("File deletion failed, there was an error");
         } else{
             puts("File deleted successfully");
@@ -49,7 +51,7 @@ void IndexHandler::cleanIndex() {
 //not finished
 void IndexHandler::readIndex() {
 
-    filename.open("thatfile.txt");
+    filename.open("IndexFile.txt");
     string w;
     int fileCount;
     int count;
@@ -79,7 +81,7 @@ void IndexHandler::readIndex() {
 }
 void IndexHandler::writeToIndex(AVLTree<Words> & querries) {
 
-    filename.open("thatfile.txt");
+    filename.open("IndexFile.txt");
 
     if(!filename.is_open()){
         cout << "Could not open Corpus file for writing  \n";

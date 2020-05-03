@@ -13,8 +13,10 @@ CMakeFiles/SearchEngine.dir/DocumentParser.cpp.o
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/AVLTree.h
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/DocumentParser.cpp
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/DocumentParser.h
+ /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/HashTable.h
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/IndexInterface.h
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/Porter2_Stemmer.h
+ /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/StopWords.h
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/Words.h
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/json.hpp
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/parser.hpp
@@ -34,6 +36,7 @@ CMakeFiles/SearchEngine.dir/IndexHandler.cpp.o
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/IndexHandler.h
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/IndexInterface.h
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/Porter2_Stemmer.h
+ /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/StopWords.h
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/Words.h
 CMakeFiles/SearchEngine.dir/Porter2_Stemmer.cpp.o
  /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/Porter2_Stemmer.cpp

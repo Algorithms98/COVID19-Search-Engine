@@ -12,8 +12,10 @@ CMakeFiles/SearchEngine.dir/DocumentParser.cpp.o: ../AVLIndex.h
 CMakeFiles/SearchEngine.dir/DocumentParser.cpp.o: ../AVLTree.h
 CMakeFiles/SearchEngine.dir/DocumentParser.cpp.o: ../DocumentParser.cpp
 CMakeFiles/SearchEngine.dir/DocumentParser.cpp.o: ../DocumentParser.h
+CMakeFiles/SearchEngine.dir/DocumentParser.cpp.o: ../HashTable.h
 CMakeFiles/SearchEngine.dir/DocumentParser.cpp.o: ../IndexInterface.h
 CMakeFiles/SearchEngine.dir/DocumentParser.cpp.o: ../Porter2_Stemmer.h
+CMakeFiles/SearchEngine.dir/DocumentParser.cpp.o: ../StopWords.h
 CMakeFiles/SearchEngine.dir/DocumentParser.cpp.o: ../Words.h
 CMakeFiles/SearchEngine.dir/DocumentParser.cpp.o: ../json.hpp
 CMakeFiles/SearchEngine.dir/DocumentParser.cpp.o: ../parser.hpp
@@ -33,6 +35,7 @@ CMakeFiles/SearchEngine.dir/IndexHandler.cpp.o: ../IndexHandler.cpp
 CMakeFiles/SearchEngine.dir/IndexHandler.cpp.o: ../IndexHandler.h
 CMakeFiles/SearchEngine.dir/IndexHandler.cpp.o: ../IndexInterface.h
 CMakeFiles/SearchEngine.dir/IndexHandler.cpp.o: ../Porter2_Stemmer.h
+CMakeFiles/SearchEngine.dir/IndexHandler.cpp.o: ../StopWords.h
 CMakeFiles/SearchEngine.dir/IndexHandler.cpp.o: ../Words.h
 
 CMakeFiles/SearchEngine.dir/Porter2_Stemmer.cpp.o: ../Porter2_Stemmer.cpp

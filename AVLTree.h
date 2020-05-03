@@ -9,6 +9,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <fstream>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -16,6 +17,10 @@ template <class T>
 class AVLTree {
 
 private:
+
+    /*
+     * private Node class inside the AVLTree class
+     */
     template <class P>
     class AVLNode {
     public:
@@ -23,6 +28,10 @@ private:
         AVLNode *right;
         int height = 0;
         P data;
+
+        /*
+         * Constructors
+         */
 
         AVLNode() {
             left = nullptr;
@@ -44,6 +53,10 @@ private:
             this->height = newheight;
         }
 
+        /*
+         * Overloaded assignment operator
+         */
+
         void operator=(AVLNode<P> &obj) {
             data = obj.data;
             if (obj.left != nullptr) {
@@ -64,7 +77,7 @@ private:
 
         AVLNode<T> *root;
         int maxValue(int, int);
-        int treeHeight(AVLNode<T>*);
+        int treeHeight(AVLNode<T>*&);
         void doubleRotateRightChild(AVLNode<T>*&);
         void doubleRotateLeftChild(AVLNode<T>*&);
         void rotateLeftChild(AVLNode<T>*&);
@@ -79,7 +92,7 @@ private:
         bool contains(T, AVLNode<T>*);
         void printInOrder(AVLNode<T>*);
         void parseWords(AVLNode<T>*);
-        ostream& setPersistent(AVLNode<T>*) ;
+        void setPersistent(AVLNode<T>*) ;
         int numOfNodes;
 
 public:
@@ -112,6 +125,9 @@ AVLTree<T>::AVLTree(T val) {
     insert(val);
 }
 
+/*
+ * Deep Copy constructor
+ */
 template <class T>
 AVLTree<T>::AVLTree(AVLTree & obj) {
     root = nullptr;
@@ -122,11 +138,17 @@ AVLTree<T>::AVLTree(AVLTree & obj) {
     }
 }
 
+/*
+ * Desstructor
+ */
 template <class T>
 AVLTree<T>::~AVLTree() {
     destroyTree();
 }
 
+/*
+ * Overloaded assignment operator
+ */
 template <class T>
 AVLTree<T>& AVLTree<T>::operator=(AVLTree<T> & obj) {
 
@@ -137,12 +159,12 @@ AVLTree<T>& AVLTree<T>::operator=(AVLTree<T> & obj) {
     return *this;
 }
 
+/*
+ * Add a new node with a copy of the root passed
+ */
 template <class T>
 typename AVLTree<T>::template AVLNode<T>* AVLTree<T>::copy(AVLNode<T> *& avlNode) {
-//AVLTree<T>::AVLNode<T>* AVLTree<T>::copy(AVLTree::AVLNode<T> *& avlNode) {
 
-  //  template<typename T>
-  //  typename DSAVLTree<T>::template AVLNode<T>* DSAVLTree<T>::copy(AVLNode<T>*& node)
     if(avlNode != nullptr){
         AVLNode<T>* copyleft = copy(avlNode->left);
         AVLNode<T>* copyright = copy(avlNode->right);
@@ -152,6 +174,9 @@ typename AVLTree<T>::template AVLNode<T>* AVLTree<T>::copy(AVLNode<T> *& avlNode
         return nullptr;
     }
 }
+/*
+ * Recursively delete all the nodes in the tree
+ */
 template <class T>
 void AVLTree<T>::destroyTree() {
     destroyTree(root);
@@ -174,31 +199,21 @@ void AVLTree<T>::destroyTree(AVLNode<T> * avlNode) {
 }
 
 /*
-template <class T>
-void AVLTree<T>::destroyTree(AVLNode<T> * avlNod) {
-    AVLNode<T>* curr;
-
-    if(avlNod != nullptr){
-        if(avlNod->left != nullptr){
-            destroyTree(avlNod->left);
-        }
-        if(avlNod->right != nullptr){
-            destroyTree(avlNod->right);
-        }
-        curr = avlNod;
-        delete avlNod;
-    }
-    avlNod = nullptr;
-} */
-
+ * Insert an element into the AVLTree
+ */
 template <class T>
 void AVLTree<T>::insert(T i) {
 
     insert(i,root);
 }
-
+/*
+ * Private method that self balances and inserts elements into the AVLTreeF
+ */
 template <class T>
 void AVLTree<T>::insert(T value, AVLTree::AVLNode<T> *& node) {
+    cout << "Entering insert Method in AVL Tree..." << endl;
+    cout << "Content of Node: " << value << endl;
+    system("read -n 1 -s -p \"Press any key to continue...\"");
 
     if(node == nullptr) {
         node = new AVLNode<T>(value);
@@ -228,6 +243,10 @@ void AVLTree<T>::insert(T value, AVLTree::AVLNode<T> *& node) {
 
     node->height = maxValue(treeHeight(node->left), treeHeight(node->right)) + 1;
 }
+
+/*
+ *Checks if the AVLTree has elements in it
+ */
 template <class T>
 bool AVLTree<T>::isEmpty() {
 
@@ -240,6 +259,9 @@ bool AVLTree<T>::isEmpty() {
 
 }
 
+/*
+ * Checks if the AVLTree contains a specific element in its nodes
+ */
 template <class T>
 bool AVLTree<T>::contains(T i) {
 
@@ -264,6 +286,9 @@ bool AVLTree<T>::contains(T value, AVLNode<T> * node) {
     return false;
 }
 
+/*
+ * Method that traverses the tree and returns the value by reference if found in the tree
+ */
 template <class T>
 T& AVLTree<T>::find(T i) {
 
@@ -285,10 +310,13 @@ T& AVLTree<T>::find(T value, AVLNode<T> * node) {
             return node->data;
         }
     }
-    throw out_of_range("The element does not exist in the AVL Tree");
+    throw out_of_range("The element does not exist in the AVL Tree, Coming from the find in the AVLTREE");
 
 }
 
+/*
+ * Print the values by doing an inorder traversal
+ */
 template <class T>
 void AVLTree<T>::displayInOrder(AVLTree<T>::AVLNode<T> *& avlNode, ostream & outputFile) {
 
@@ -306,6 +334,9 @@ void AVLTree<T>::displayInOrder(ostream & outputFile) {
 
 }
 
+/*
+ * Checks for imbalance by comparing the heights of left and right trees
+ */
 template <class T>
 int AVLTree<T>::maxValue(int leftSubTree, int rightSubTree){
 
@@ -316,11 +347,16 @@ int AVLTree<T>::maxValue(int leftSubTree, int rightSubTree){
     }
 
 }
+
+/*
+ * Determines the height of a particular node
+ */
 template <class T>
-int AVLTree<T>::treeHeight(AVLTree::AVLNode<T> * avlNode) {
+int AVLTree<T>::treeHeight(AVLTree::AVLNode<T> *& avlNode) {
+    //system("read -n 1 -s -p \"Press any key to continue...\"");
 
     if(avlNode == nullptr){
-        cout << "AVL TREE IS EMPTY \n";
+        cout << "AVL TREE IS EMPTY, COULD NOT FIND THE AVLTREE HEIGHT \n";
         return -1;
     }
     else{
@@ -329,12 +365,20 @@ int AVLTree<T>::treeHeight(AVLTree::AVLNode<T> * avlNode) {
 
 
 }
+
+/*
+ * Case 3 rotation
+ */
 template <class T>
 void AVLTree<T>::doubleRotateRightChild(AVLTree::AVLNode<T> *& avlNode) {
 
     rotateLeftChild(avlNode->right);
     rotateRightChild(avlNode);
 }
+
+/*
+ * Case 2 rotation
+ */
 template <class T>
 void AVLTree<T>::doubleRotateLeftChild(AVLTree::AVLNode<T> *& avlNode) {
 
@@ -342,6 +386,9 @@ void AVLTree<T>::doubleRotateLeftChild(AVLTree::AVLNode<T> *& avlNode) {
     rotateLeftChild(avlNode);
 }
 
+/*
+ * Case 1 rotation
+ */
 template <class T>
 void AVLTree<T>::rotateLeftChild(AVLNode<T>*& avlNode) {
 
@@ -354,6 +401,10 @@ void AVLTree<T>::rotateLeftChild(AVLNode<T>*& avlNode) {
     avlNode = node;
 
 }
+
+/*
+ * Case 4 rotation
+ */
 
 template <class T>
 void AVLTree<T>::rotateRightChild(AVLTree::AVLNode<T> *& avlNode) {
@@ -369,7 +420,9 @@ void AVLTree<T>::rotateRightChild(AVLTree::AVLNode<T> *& avlNode) {
 
 }
 
-
+/*
+ * Parse the words into the AVLTree
+ */
 template <class T>
 void AVLTree<T>::parseWords() {
 
@@ -387,11 +440,15 @@ void AVLTree<T>::parseWords(AVLTree::AVLNode<T> * node) {
     }
 
     if(isEmpty() == true){
-        cout << "The AVL Tree is empty \n";
+        cout << "The AVL Tree is empty, Could not parse the words \n";
     }
 
 
 }
+
+/*
+ * Counts the total number of nodes in the AVLTree
+ */
 template <class T>
 void AVLTree<T>::totalNodes(AVLNode<T>* node){
 
@@ -399,7 +456,7 @@ void AVLTree<T>::totalNodes(AVLNode<T>* node){
     AVLNode<T>* tmpR = node;
 
     if(isEmpty() == true){
-        cout << "The AVL Tree is empty \n";
+        cout << "The AVL Tree is empty, Could not count the nodes from totalNodes \n";
     }
 
     while (tmpL != nullptr ){
@@ -428,7 +485,7 @@ void AVLTree<T>::printInOrder(AVLNode<T>* avlNode){
         printInOrder(avlNode->right);
     }
     if(isEmpty()){
-        cout << "AVL TREE IS EMPTY \n";
+        cout << "AVL TREE IS EMPTY, COULD NOT PRINT IN ORDER COMING FROM THE AVLTREE  \n";
     }
 
 }
@@ -439,17 +496,17 @@ void AVLTree<T>::printInOrder() {
 }
 
 template <class T>
-ostream& AVLTree<T>::setPersistent(AVLTree<T>::AVLNode<T> * node) {
+void AVLTree<T>::setPersistent(AVLTree<T>::AVLNode<T> * node) {
 
     ofstream file;
-    file.open("Filename.txt");
+    file.open("IndexFile.txt");
 
     if(!file.is_open()){
         cout << " Error, the Persistent file could not be opened \n";
     }
 
     if(isEmpty() == true){
-        cout << "The tree is empty \n";
+        cout << "The tree is empty, Coming from setPersistent in the AVLTREE \n";
     }
 
     if(node != nullptr){
@@ -457,6 +514,7 @@ ostream& AVLTree<T>::setPersistent(AVLTree<T>::AVLNode<T> * node) {
         file << node->data << " \n";
         setPersistent(node->right);
     }
+    file.close();
 
 }
 

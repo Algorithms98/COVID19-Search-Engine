@@ -8,9 +8,11 @@
 #include "AVLTree.h"
 #include "Words.h"
 #include "AVLIndex.h"
+#include "HashTable.h"
 #include "IndexInterface.h"
 #include <unordered_map>
 #include <unordered_set>
+#include "StopWords.h"
 
 struct DocumentData{
 
@@ -25,13 +27,15 @@ private:
     int numOfIndexedWords;
     int numOfTotalWords;
     string filePaths;
-    unordered_set<string> stopWords;
+    AVLTree<string> stopWords;
+   // unordered_set<string> stopWords;
     unordered_map<string, string> stemWordsCache;
     IndexInterface* indexes;
     AVLTree<string> wordsParsed;
     AVLTree<Words> wordsTree;
     AVLIndex wordIndexer;
     vector<int> averageWords;
+    HashTable<int, string> authors;
 
 public:
     DocumentParser();
@@ -39,18 +43,19 @@ public:
     int getNumOfIndexedWords();
     int getNumOfTotalWords();
     void readDirectory();
-    void parseArticles(const string, const string);
+    void parseArticles(const string, const string, const int);
     AVLTree<Words>& getWords();
     string getFilePath();
     string& loweringString(string&) const ;
     void displayStatistics();
     void insertTreeWord(string, string);
     void setStopWords();
-    unordered_set<string> getStopWords();
+    AVLTree<string> getStopWords();
     void setIndex(IndexInterface*);
     string cleanWords(string &) ;
     int getAveOfIndexedWords();
     void stemmingStrings(string &) ;
+    HashTable<int, string> getAuthors();
 
 };
 

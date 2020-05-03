@@ -28,19 +28,14 @@ private:
 
 public:
     IndexHandler();
-    IndexInterface* getIndexPtr();
+    IndexInterface*& getIndexPtr();
     void cleanIndex();
     void readIndex();
     void writeToIndex(AVLTree<Words>&);
     vector<string>  getArticleFiles();
     void getTopWords();
     int getNumOfArticles();
-
     void displayStatistics();
-
-
-    void chooseIndex(DocumentParser,string);
-
     void addToIndex();
 
 

@@ -2,15 +2,14 @@
 // Created by PRINCE NDHLOVU on 4/15/20.
 //
 #include <iostream>
-#include "SearchEngine.h"
-#include "IndexHandler.h"
-#include "DocumentParser.h"
-#include "QueryParser.h"
 #include "UserInterface.h"
 using namespace std;
 
 int main(int argc, char* argv[])
 {
+    cout << "Welcome to my Search Engine \n";
+    cout << "You have can load data into this search engine by selecting option 1 \n";
+    cout << "Or you can search for data by selecting option 2 \n";
 
     UserInterface ui;
 

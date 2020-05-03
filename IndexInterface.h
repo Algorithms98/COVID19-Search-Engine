@@ -7,6 +7,7 @@
 
 #include "Words.h"
 
+//pure virtual class that is an interface for the Authors in HashTable and AVLTree
 class IndexInterface {
 
 public:

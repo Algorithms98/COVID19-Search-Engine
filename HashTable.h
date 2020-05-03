@@ -17,6 +17,9 @@ class HashTable {
 
 private:
 
+    /*
+     * Struct to hold the key value pairs
+     */
     struct data{
         T key;
         P value;
@@ -69,6 +72,13 @@ public:
 
 };
 
+// Constructor
+template <class T, class P>
+HashTable<T, P>::HashTable() {
+    size = 1000000;
+    dataList = new vector<data>[size];
+}
+
 template <class T, class P>
 HashTable<T,P>::HashTable(int num) {
 
@@ -116,6 +126,7 @@ HashTable<T, P> ::~HashTable() {
     dataList= nullptr;
 }
 
+//find the value using the hash of the key
 template <class T, class P>
 P& HashTable<T, P>::find(T keyNum) {
 
@@ -129,6 +140,7 @@ P& HashTable<T, P>::find(T keyNum) {
 
 }
 
+//insert a value using the key
 template <class T, class P>
 void HashTable<T, P>::insert(T newKey, P newVal){
 
@@ -139,6 +151,7 @@ void HashTable<T, P>::insert(T newKey, P newVal){
 
 }
 
+//check if the value is present in the table using the key
 template <class T, class P>
 bool HashTable<T, P>::contains(T keyVal) {
 
@@ -151,11 +164,14 @@ bool HashTable<T, P>::contains(T keyVal) {
     return false;
 }
 
+//get the size of the hash table
 template <class T, class P>
 int HashTable<T, P>::getSize() {
 
     return size;
 }
+
+//check if the hash table has elements in it
 template <class T, class P>
 bool HashTable<T, P>::isEmpty() {
 
@@ -167,6 +183,7 @@ bool HashTable<T, P>::isEmpty() {
     return true;
 
 }
+//print all the elements in the hash table
 template <class T, class P>
 void HashTable<T,P>::display() {
 
@@ -177,6 +194,8 @@ void HashTable<T,P>::display() {
     }
 
 }
+
+//get the index value of an element in the hash table
 template <class T, class P>
 int HashTable<T,P>::getIndexValue(T keyVal) {
 
@@ -185,6 +204,7 @@ int HashTable<T,P>::getIndexValue(T keyVal) {
 
 }
 
+//get the index location of a key in the hash table
 template <class T, class P>
 int HashTable<T,P>::getIndexKey(T keyNum) {
 

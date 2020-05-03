@@ -28,7 +28,7 @@ public:
     bool hasElement(string);
     void parseWords();
     void displayWords();
-    virtual void setPersistent();
+    void setPersistent();
 
 };
 

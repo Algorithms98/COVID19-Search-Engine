@@ -9,6 +9,7 @@
 #include "DocumentParser.h"
 #include "QueryParser.h"
 #include "AVLTree.h"
+#include <stdlib.h>
 
 class UserInterface {
 

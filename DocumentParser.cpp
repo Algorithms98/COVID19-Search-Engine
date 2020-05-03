@@ -12,13 +12,18 @@
 #include <dirent.h>
 #include <iostream>
 #include "parser.hpp"
-//#include "../parser.hpp"
 
 using namespace std;
 using nlohmann::json;
 
 
 DocumentParser::DocumentParser() {
+    StopWords sw;
+    sw.insertStopWords();
+    stopWords = sw.getStopTree();
+    numOfArticles = 0;
+    numOfIndexedWords = 0;
+    numOfTotalWords =0;
 
 }
 
@@ -69,19 +74,26 @@ void DocumentParser::readDirectory() {
                 strncat(filePath, "/",5000);
                 strncat(filePath, dir->d_name, 5000);
 
-
-                if(numOfArticles <= 12000){
-                    parseArticles(filePath, directoryPath);
+                cout << "About to parse a file \n";
+                if(numOfArticles <= 2){
+                    parseArticles(filePath, directoryPath, stoi(fileId));
+                    cout << "Parsed an article \n";
                 }
             }
+        }
+
+        if(numOfArticles == 3){
+            break;
         }
     }
     closedir(corpus);
 }
 
-// Parsing the json element
-void DocumentParser::parseArticles(const string fileDirectory , const string filePath) {
-
+/*
+ * Parsing the articles and adding the words into the AVLTree
+ */
+void DocumentParser::parseArticles(const string fileDirectory , const string filePath, int id) {
+    cout << "parsing an article \n";
     ifstream articles(fileDirectory);
     string temp;
     string text;
@@ -89,16 +101,32 @@ void DocumentParser::parseArticles(const string fileDirectory , const string fil
         cout << "The file path does not exist \n";
     }
 
+
     DocumentData data;
     json j;
     j = json::parse(articles);
 
-    //articles >> j;
+    //articles >> j;  //if(!j["authors"][i]["last"].empty()){
+    string name;
+    int i = 0;
 
-    while (j["body_text"]["text"].size() != NULL){
+    /*
+     * Adding the authors into the hash table
+     */
+    while(j["authors"][i]["last"] != NULL){
+        name = j["authors"][i]["last"].get<string>();
+        authors.insert(id, name);
+        i++;
+    }
 
-                text = j["body_text"]["text"].get<string>();
+    int k = 0;
+    while (j["body_text"][k]["text"].size() != NULL){
 
+        //j["body_text"][k]["text"].size() != j["body_text"][k].size())
+
+                text = j["body_text"][k]["text"].get<string>();
+                cout << text << endl ;
+                k++;
     }
 
     string line;
@@ -108,16 +136,6 @@ void DocumentParser::parseArticles(const string fileDirectory , const string fil
         insertTreeWord(line, filePath);
     }
 
-//    string row;
-//    getline(articles, row);
-//    while (!articles.eof()){
-//        stringstream ss(row);
-//       while (ss >> temp){
-//           numOfTotalWords++;
-//           insertTreeWord(temp, fileDirectory);
-//       }
-//       getline(articles, row);
-//    }
     articles.close();
     cout << "words have been inserted into the AVL Tree \n";
 
@@ -134,7 +152,7 @@ string DocumentParser::getFilePath() {
 // inserting parsed words into the AVL tree
 void DocumentParser::insertTreeWord(string name, string fileName) {
 
-    if(!(stopWords.count(name) > 0)){
+    if(!(stopWords.contains(name))){
         Words curr(name, fileName);
         if(curr.getQuery() != ""){
             if(!wordsTree.contains(curr)){
@@ -155,7 +173,7 @@ void DocumentParser::setStopWords() {
     string word;
     ifstream stopFile("StopWords.txt");
 
-    stopWords.clear();
+    //stopWords.clear();
     while(!stopFile.eof()){
         stopFile >> word;
         stopWords.insert(word);
@@ -163,7 +181,7 @@ void DocumentParser::setStopWords() {
 
 }
 
-unordered_set<string> DocumentParser::getStopWords() {
+AVLTree<string> DocumentParser::getStopWords() {
     return  stopWords;
 }
 
@@ -216,7 +234,7 @@ string DocumentParser::cleanWords(string & entry)  {
         return temp;
     }
 
-    if(stopWords.count(temp) > 0){
+    if(stopWords.contains(temp) ){
         return "";
     }
 
@@ -226,9 +244,11 @@ string DocumentParser::cleanWords(string & entry)  {
 }
 
 
-
-
 void DocumentParser::setIndex(IndexInterface * indx) {
 
     indexes = indx;
+}
+
+HashTable<int, string> DocumentParser::getAuthors() {
+    return  authors;
 }
