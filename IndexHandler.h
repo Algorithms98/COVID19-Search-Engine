@@ -28,6 +28,9 @@ private:
 
 public:
     IndexHandler();
+    ~IndexHandler();
+    IndexHandler(const IndexHandler&);
+    IndexHandler& operator=(const IndexHandler&);
     IndexInterface*& getIndexPtr();
     void cleanIndex();
     void readIndex();

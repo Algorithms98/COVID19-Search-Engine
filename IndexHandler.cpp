@@ -118,3 +118,26 @@ void IndexHandler::displayStatistics() {
 
 }
 
+IndexHandler::~IndexHandler() {
+
+}
+
+IndexHandler::IndexHandler(const IndexHandler &obj) {
+    numOfArtArticles = obj.numOfArtArticles;
+    numOfIndexedWords = obj.numOfIndexedWords;
+    numOfWordsTotal = obj.numOfWordsTotal;
+    articleFiles = obj.articleFiles;
+
+}
+
+IndexHandler &IndexHandler::operator=(const IndexHandler &obj) {
+
+     numOfArtArticles = obj.numOfArtArticles;
+     numOfIndexedWords = obj.numOfIndexedWords;
+     numOfWordsTotal = obj.numOfWordsTotal;
+     articleFiles = obj.articleFiles;
+      //  words = obj.words;
+
+    return *this;
+}
+

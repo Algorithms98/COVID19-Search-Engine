@@ -13,6 +13,10 @@
 
 using namespace std;
 
+/*
+ * Referenced part of the implemantation from Data Structures and Algorithm Analysis by Mark Allen
+ */
+
 template <class T>
 class AVLTree {
 

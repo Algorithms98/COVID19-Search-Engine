@@ -19,12 +19,15 @@ private:
     AVLTree<string> stopWordsTree;
     queue<string> userInput;
     StopWords swords;
+    bool author = false;
 
 public:
 
     QueryParser();
     queue<string>& getUserInput();
     void clearQ(queue<string> &);
+    bool hasAuthor();
+
 
 
 };

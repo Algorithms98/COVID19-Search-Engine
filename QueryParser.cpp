@@ -23,11 +23,15 @@ queue<string> & QueryParser::getUserInput() {
 
     while(getline(strings, searchTerm, ' ')){
 
-        Words sw(searchTerm);
+        Words sw(searchTerm);   //lowers the word to lower case chars, stems the word, removes punctuation
         string singleText = sw.getQuery();
 
+        if(singleText == "author") {
+            author = true;
+        }
+
         if(stopWordsTree.contains(singleText)){
-            if(singleText == "not" || "and" || "or"){
+            if(singleText == "not" || "and" || "or" || "author"){
                 userInput.push(singleText);
                 continue;
             }
@@ -54,4 +58,8 @@ void  QueryParser::clearQ(queue <string> & q) {
         q.pop();
     }
 
+}
+
+bool QueryParser::hasAuthor() {
+    return author;
 }

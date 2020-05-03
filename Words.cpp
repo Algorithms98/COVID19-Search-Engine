@@ -8,14 +8,15 @@ Words::Words() {
     text = "";
 
 }
-Words::Words(string query, pair<string, int> loc ) {
+
+Words::Words(string& query, pair<string, int>& loc ) {
 
     totalWordFrequency = loc.second;
     text = query;
     file.push_back(loc);
 
 }
-Words::Words(string query, string files) {
+Words::Words(string& query, string& files) {
 
     totalWordFrequency = 0;
     text = query;
@@ -26,16 +27,19 @@ Words::Words(string query, string files) {
 
 }
 
-Words::Words(string query) {
+Words::Words(string& query) {
 
     totalWordFrequency = 0;
     text = query;
-    formatQuery();
-    removePunctuation();
-    stemWords();
+    formatQuery();  //convert to lower case characters
+    removePunctuation();    //remove any punctuation marks like !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~.
+    stemWords();        //stem the words
 
 }
 
+/*
+ * removes any punctuation in the word e.g !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+ */
 void Words::removePunctuation() {
 
     int varLen = text.size();
@@ -48,6 +52,10 @@ void Words::removePunctuation() {
 
 
 }
+
+/*
+ * Stemming the word
+ */
 void Words::stemWords() {
 
     Porter2Stemmer::trim(text);
@@ -71,8 +79,12 @@ int Words::getTotalWordFrequency() {
 
 }
 
+/*
+ * modifies the string to lower case characters
+ */
 void Words::formatQuery() {
     locale fix;
+
     for(int i = 0; i < text.length(); i++){
         text[i] = tolower(text[i], fix);
     }
@@ -100,7 +112,7 @@ ostream& operator<<(ostream & buffer, const Words & querry) {
 bool Words::operator==(const Words & query) {
     return text == query.text;
 }
-int Words::fileLocation(string fileName) {
+int Words::fileLocation(string& fileName) {
 
     for(int i =0; i< file.size(); i++){
         if(file[i].first == fileName){
@@ -117,7 +129,7 @@ void Words::addFileIndex(pair<string, int> files) {
     file.push_back(files);
 }
 
-void Words::addFile(string fileName) {
+void Words::addFile(string& fileName) {
 
     totalWordFrequency += 1;
     int location = fileLocation(fileName);

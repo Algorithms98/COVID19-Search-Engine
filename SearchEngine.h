@@ -32,12 +32,12 @@ public:
     void orLogic();
     void  notLogic();
 
-    bool hasWord(string);
+    bool hasWord(string&);
     void getQuery();
     void displayResults(vector<pair<string, int>>);
     vector<pair<string,int>> pullRequests(string);
     void PrinceRank(vector<pair<string,int>>);
-    void simpleSearch(string);
+    void viewArticles();
 
     vector<pair<string, int>> andSearch(vector<pair<string, int>>&, vector<pair<string, int>>&);
     vector<pair<string, int>> orSearch(vector<pair<string, int>>&, vector<pair<string, int>>&);

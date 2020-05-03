@@ -24,15 +24,15 @@ class Words {
     friend ostream& operator<<(ostream&, const Words&);
 
 private:
-    string text;
+    string text ="";
     vector<pair<string, int> > file;
     int totalWordFrequency;
 
 public:
     Words();
-    Words(string);
-    Words(string, string);
-    Words(string, pair<string, int>);
+    Words(string&);
+    Words(string&, string&);
+    Words(string&, pair<string, int>&);
     void removePunctuation();
     void stemWords();
     string getQuery();
@@ -42,8 +42,8 @@ public:
     bool operator>(const Words&);
     bool operator<(const Words&);
     bool operator==(const Words&);
-    int fileLocation(string);
-    void addFile(string);
+    int fileLocation(string&);
+    void addFile(string&);
     void addFileIndex(pair<string, int>);
 
 };

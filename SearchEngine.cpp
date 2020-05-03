@@ -15,6 +15,9 @@ SearchEngine::SearchEngine(IndexInterface * handle, int num) {
 
 }
 
+/*
+ * AND keyword querry processor
+ */
 void SearchEngine::andLogic() {
     vector<pair<string, int>> initial;
     vector<pair<string, int>> final;
@@ -44,6 +47,9 @@ void SearchEngine::andLogic() {
 
 }
 
+/*
+ * Rank the articles
+ */
 void SearchEngine::PrinceRank(vector < pair <string, int > > articles) {
     for(pair<string, int> doc : articles ){
 
@@ -57,6 +63,9 @@ void SearchEngine::PrinceRank(vector < pair <string, int > > articles) {
 
 }
 
+/*
+ * OR keyword querry processor
+ */
 void SearchEngine::orLogic() {
 
     vector<pair<string, int>> initial;
@@ -87,6 +96,9 @@ void SearchEngine::orLogic() {
 
 }
 
+/*
+ * NOT keyword querry processor
+ */
 void SearchEngine::notLogic() {
 
     vector<pair<string, int>> initial;
@@ -119,23 +131,28 @@ void SearchEngine::notLogic() {
 
 }
 
-bool SearchEngine::hasWord(string article) {
+/*
+ * Checks if the string has been indexed or exists in the corpus
+ */
+bool SearchEngine::hasWord(string& article) {
 
     if(index->hasElement(article)){
         return true;
     }
 
     return false;
-
 }
 
 void SearchEngine::getQuery() {
     QueryParser qp;
     userQuery = qp.getUserInput();
+    bool found = qp.hasAuthor();
+    HashTable<int,string> scientists = parse.getAuthors();
 
+    //if there is one word in the Q or the search querry is just one word
     if(userQuery.size() == 1){
         vector<pair<string, int>> v;
-        if(hasWord(userQuery.front())){
+        if(hasWord(userQuery.front())){         //check if the word has been indexed
             v = pullRequests(userQuery.front());
         }
         userQuery.pop();
@@ -147,12 +164,17 @@ void SearchEngine::getQuery() {
     } else if(userQuery.front() == "and") {
         andLogic();
 
-    } else{
+    } else if(userQuery.front() == "or"){
         orLogic();
+    } else if(found == true){
+
     }
 
 }
 
+/*
+ *Look for the word in the file Index
+ */
 vector<pair <string, int>> SearchEngine::pullRequests(string article) {
 
     Words file = index->wordLocation(article);
@@ -176,12 +198,8 @@ void SearchEngine::displayResults(vector <pair< string, int > > info ) {
             cout << endl;
             cout << endl;
         }
-
+        viewArticles();
         rankedArticles.clear();
-
-//        for(int j = 0; j < rankedArticles.size(); j ++) {
-//            rankedArticles.pop_back();
-//        }
 
     }
     else {
@@ -190,17 +208,34 @@ void SearchEngine::displayResults(vector <pair< string, int > > info ) {
 
 }
 
-void SearchEngine::simpleSearch(string article) {
-    vector<pair<string, int>> info;
+/*
+ * Opens and displays the selected file
+ */
+void SearchEngine::viewArticles() {
 
-    if(hasWord(article)){
-        info = pullRequests(article);
+    cout << "Which article would you like to view \n";
+    string article;
+    getline(cin, article);
 
+    article = article.substr(0, article.length() - 4);
+
+    ifstream rFile(article);
+
+    if(!rFile.is_open()){
+        cout << "Could not open file, but it exists \n";
     }
-    displayResults(info);
+    else{
+        string row;
+        getline(rFile, row);
+        while(!rFile.eof()){
+            cout << row << endl;
+            getline(rFile, row);
+        }
+    }
+
+    rFile.close();
 
 }
-
 vector< pair <string, int>> SearchEngine::andSearch(vector < pair <string, int >  > & final, vector < pair <string,
                                                   int > > & initial) {
 
