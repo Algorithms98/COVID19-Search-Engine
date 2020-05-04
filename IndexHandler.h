@@ -24,7 +24,7 @@ private:
     IndexInterface* index;
     vector<string> articleFiles;
     AVLTree<Words> words;
-    DocumentParser parse;
+   // DocumentParser parse;
 
 public:
     IndexHandler();

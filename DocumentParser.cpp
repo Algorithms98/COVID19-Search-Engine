@@ -76,7 +76,9 @@ void DocumentParser::readDirectory() {
 
                 cout << "About to parse a file \n";
                 if(numOfArticles <= 2){
-                    parseArticles(filePath, directoryPath, stoi(fileId));
+                    cout << fileId << endl;
+                   // int num = stoi(fileId);
+                    parseArticles(filePath, directoryPath, fileId);
                     cout << "Parsed an article \n";
                 }
             }
@@ -92,7 +94,7 @@ void DocumentParser::readDirectory() {
 /*
  * Parsing the articles and adding the words into the AVLTree
  */
-void DocumentParser::parseArticles(const string fileDirectory , const string filePath, int id) {
+void DocumentParser::parseArticles(const string fileDirectory , const string filePath, string id) {
     cout << "parsing an article \n";
     ifstream articles(fileDirectory);
     string temp;
@@ -107,17 +109,17 @@ void DocumentParser::parseArticles(const string fileDirectory , const string fil
     j = json::parse(articles);
 
     //articles >> j;  //if(!j["authors"][i]["last"].empty()){
-    string name;
+    string name="";
     int i = 0;
 
     /*
      * Adding the authors into the hash table
      */
-    while(j["authors"][i]["last"] != NULL){
-        name = j["authors"][i]["last"].get<string>();
-        authors.insert(id, name);
-        i++;
-    }
+    //while(j["authors"][i]["last"] != NULL){
+      //  name = j["authors"][i]["last"].get<string>();
+      //  authors.insert(id, name);
+       // i++;
+ //   }
 
     int k = 0;
     while (j["body_text"][k]["text"].size() != NULL){
@@ -166,6 +168,11 @@ void DocumentParser::insertTreeWord(string name, string fileName) {
 }
 
 void DocumentParser::displayStatistics() {
+    cout << "Number of total unique words is: " << numOfTotalWords  << endl;
+    cout << "Number of articles parsed is: " << numOfArticles << endl;
+    cout << "Number of words indexed is: " << numOfIndexedWords << endl;
+    cout << "Average number of indexed words is " << getAveOfIndexedWords() << endl;
+    cout << "Total number of unique Authors is " << "" << endl;
 
 }
 void DocumentParser::setStopWords() {
@@ -249,6 +256,6 @@ void DocumentParser::setIndex(IndexInterface * indx) {
     indexes = indx;
 }
 
-HashTable<int, string> DocumentParser::getAuthors() {
+HashTable<string, string> DocumentParser::getAuthors() {
     return  authors;
 }

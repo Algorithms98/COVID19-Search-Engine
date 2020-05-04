@@ -173,12 +173,6 @@ SearchEngine.h
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/SearchEngine.h
 IndexHandler.h
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/IndexHandler.h
-DocumentParser.h
-/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/DocumentParser.h
-QueryParser.h
-/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/QueryParser.h
-AVLTree.h
-/Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/AVLTree.h
 stdlib.h
 -
 

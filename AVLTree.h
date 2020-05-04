@@ -47,7 +47,7 @@ private:
             this->data = value;
             left = nullptr;
             right = nullptr;
-            height = 0;
+            height = height + 1;
         }
 
         AVLNode(P &value, AVLNode *newleft, AVLNode *newright, int newheight) {
@@ -79,25 +79,24 @@ private:
         }
     };
 
-        AVLNode<T> *root;
-        int maxValue(int, int);
-        int treeHeight(AVLNode<T>*&);
-        void doubleRotateRightChild(AVLNode<T>*&);
-        void doubleRotateLeftChild(AVLNode<T>*&);
-        void rotateLeftChild(AVLNode<T>*&);
-        void rotateRightChild(AVLNode<T>*&);
-        void destroyTree(AVLNode<T>*);
-        void insert(T, AVLNode<T>*&);
-        void displayInOrder(AVLNode<T>*&, ostream&);
-        T& find(T, AVLNode<T>*);
-        void totalNodes(AVLNode<T>*);
-        //void parseInOrder(AVLNode<T>*);
-        AVLNode<T>* copy(AVLNode<T>*&);
-        bool contains(T, AVLNode<T>*);
-        void printInOrder(AVLNode<T>*);
-        void parseWords(AVLNode<T>*);
-        void setPersistent(AVLNode<T>*) ;
-        int numOfNodes;
+    AVLNode<T> *root;
+    int maxValue(int, int);
+    int treeHeight(AVLNode<T>*&);
+    void doubleRotateRightChild(AVLNode<T>*&);
+    void doubleRotateLeftChild(AVLNode<T>*&);
+    void rotateLeftChild(AVLNode<T>*&);
+    void rotateRightChild(AVLNode<T>*&);
+    void destroyTree(AVLNode<T>*);
+    void insert(T, AVLNode<T>*&);
+    void displayInOrder(AVLNode<T>*&, ostream&);
+    T& find(T, AVLNode<T>*);
+    void totalNodes(AVLNode<T>*);
+    AVLNode<T>* copy(AVLNode<T>*&);
+    bool contains(T, AVLNode<T>*);
+    void printInOrder(AVLNode<T>*);
+    void parseWords(AVLNode<T>*);
+    void setPersistent(AVLNode<T>*) ;
+    int numOfNodes;
 
 public:
     AVLTree();
@@ -133,7 +132,7 @@ AVLTree<T>::AVLTree(T val) {
  * Deep Copy constructor
  */
 template <class T>
-AVLTree<T>::AVLTree(AVLTree & obj) {
+AVLTree<T>::AVLTree(AVLTree<T> & obj) {
     root = nullptr;
 
     if(this != &obj){
@@ -192,12 +191,14 @@ void AVLTree<T>::destroyTree(AVLNode<T> * avlNode) {
     if(avlNode != nullptr){
         if(avlNode->left != nullptr){
             destroyTree(avlNode->left);
+            delete avlNode->left;
         }
         if(avlNode->right != nullptr){
             destroyTree(avlNode->right);
+            delete avlNode->right;
         }
-        curr = avlNode;
-        delete avlNode;
+        //curr = avlNode;
+        //delete avlNode;
     }
     avlNode = nullptr;
 }
@@ -216,11 +217,12 @@ void AVLTree<T>::insert(T i) {
 template <class T>
 void AVLTree<T>::insert(T value, AVLTree::AVLNode<T> *& node) {
     cout << "Entering insert Method in AVL Tree..." << endl;
-    cout << "Content of Node: " << value << endl;
-    system("read -n 1 -s -p \"Press any key to continue...\"");
+    //cout << "Content of Node: " << value << endl;
+    // system("read -n 1 -s -p \"Press any key to continue...\"");
 
     if(node == nullptr) {
         node = new AVLNode<T>(value);
+        numOfNodes++;
     }
     else if(value < node->data) {
         insert(value, node->left);
@@ -326,8 +328,14 @@ void AVLTree<T>::displayInOrder(AVLTree<T>::AVLNode<T> *& avlNode, ostream & out
 
     if(avlNode != nullptr){
         displayInOrder(avlNode->left, outputFile);
-        outputFile << avlNode->data;
+        outputFile << avlNode->data<< " " << endl;
+        cout << avlNode->data << " "<< endl;
         displayInOrder(avlNode->right, outputFile);
+    }
+
+    if(avlNode == nullptr){
+        cout << "AVLTree is Empty \n";
+        outputFile << "AVLTree is Empty \n";
     }
 
 }
@@ -400,6 +408,7 @@ void AVLTree<T>::rotateLeftChild(AVLNode<T>*& avlNode) {
 
     avlNode->left = node->right;
     node->right = avlNode;
+
     avlNode->height = maxValue(treeHeight(avlNode->left), treeHeight(avlNode->right)) + 1;
     node->height = maxValue(treeHeight(node->left), avlNode->height) + 1;
     avlNode = node;
@@ -419,7 +428,7 @@ void AVLTree<T>::rotateRightChild(AVLTree::AVLNode<T> *& avlNode) {
     avlNode->right = node->left;
     node->left = avlNode;
     avlNode->height = maxValue(treeHeight(avlNode->left), treeHeight(avlNode->right)) + 1;
-    node->height = maxValue(treeHeight(node->right), node->height) + 1;
+    node->height = maxValue(treeHeight(node->right), avlNode->height) + 1;
     avlNode = node;
 
 }
@@ -443,7 +452,7 @@ void AVLTree<T>::parseWords(AVLTree::AVLNode<T> * node) {
         parseWords(node->right);
     }
 
-    if(isEmpty() == true){
+    if(isEmpty()){
         cout << "The AVL Tree is empty, Could not parse the words \n";
     }
 

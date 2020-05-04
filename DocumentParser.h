@@ -35,7 +35,7 @@ private:
     AVLTree<Words> wordsTree;
     AVLIndex wordIndexer;
     vector<int> averageWords;
-    HashTable<int, string> authors;
+    HashTable<string, string> authors;
 
 public:
     DocumentParser();
@@ -43,7 +43,7 @@ public:
     int getNumOfIndexedWords();
     int getNumOfTotalWords();
     void readDirectory();
-    void parseArticles(const string, const string, const int);
+    void parseArticles(const string, const string, const string);
     AVLTree<Words>& getWords();
     string getFilePath();
     string& loweringString(string&) const ;
@@ -55,7 +55,7 @@ public:
     string cleanWords(string &) ;
     int getAveOfIndexedWords();
     void stemmingStrings(string &) ;
-    HashTable<int, string> getAuthors();
+    HashTable<string, string> getAuthors();
 
 };
 

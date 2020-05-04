@@ -19,7 +19,7 @@ IndexInterface*& IndexHandler::getIndexPtr() {
 
 void IndexHandler::addToIndex() {
 
-    //DocumentParser parser;
+    DocumentParser parse;
     index = new AVLIndex;
     parse.setIndex(index);
    parse.readDirectory();
@@ -93,7 +93,6 @@ void IndexHandler::writeToIndex(AVLTree<Words> & querries) {
 
     querries.displayInOrder(filename);
     filename.close();
-
 }
 
 vector<string> IndexHandler::getArticleFiles() {
@@ -112,9 +111,11 @@ int IndexHandler::getNumOfArticles() {
 
 void IndexHandler::displayStatistics() {
 
-    cout << "Number of pages indexed is: " << numOfWordsTotal  << endl;
+    cout << "Number of total unique words is: " << numOfWordsTotal  << endl;
     cout << "Number of articles parsed is: " << numOfArtArticles << endl;
     cout << "Number of words indexed is: " << numOfIndexedWords << endl;
+    cout << "Average number of indexed words is " << endl;
+    cout << "Total number of unique Authors is " << "" << endl;
 
 }
 

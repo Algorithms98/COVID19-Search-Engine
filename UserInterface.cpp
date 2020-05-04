@@ -6,7 +6,7 @@
 
 int UserInterface::loadData() {
 
-    cout << "This is the Search Engine  \n";
+    cout << "Choose one of the options below  \n";
     cout << "1: Add articles into the index \n";
     cout << "2: Clear all the data in the index \n";
     cout << "3: Exit from the current menu \n";
@@ -46,14 +46,13 @@ int UserInterface::operationMode() {
 
 void UserInterface::searchEngine() {
 
-   // cout << "before index \n";
-   // IndexHandler indexH;
-   // cout << "after index \n";
+    IndexHandler indexH;
+
    // system("read -n 1 -s -p \"Press any key to continue...\"");
     cout << endl ;
     int option = operationMode();
     int choice;
-   IndexHandler indexH;
+
     while (option != 3){
         switch (option){
 
@@ -61,8 +60,7 @@ void UserInterface::searchEngine() {
 
                  choice = loadData();
 
-                while(choice != 3){
-                    //IndexHandler indexH;
+
                     if(choice == 1) {
                         indexH.addToIndex();
                         break;
@@ -70,21 +68,14 @@ void UserInterface::searchEngine() {
                         indexH.cleanIndex();
                         break;
                     } else{
-                        cout << "Please enter a valid menu option 1-3 \n";
-                        choice = loadData();
+
+                        searchEngine();
                        // break;
                     }
-                   // choice = loadData();
 
-                }
-                break;
-                //choice = loadData();
 
             case 2:
                  choice = searchArticles();
-
-                while (choice != 3){
-                   // IndexHandler indexH;
 
                     if(choice == 1){
                         SearchEngine searchE(indexH.getIndexPtr(), indexH.getNumOfArticles());
@@ -96,8 +87,7 @@ void UserInterface::searchEngine() {
                     } else{
                         cout << "Please enter a valid menu option 1-3 \n";
                     }
-                    choice = searchArticles();
-                }
+                     searchEngine();
                 break;
             default:
                 cout << "Please enter a valid menu option 1-3 \n";

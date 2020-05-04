@@ -15,8 +15,9 @@ queue<string> & QueryParser::getUserInput() {
     string searchTerm;
 
     clearQ(userInput);
-    cout << "Enter your search term here \n";
+    cout << "Enter your search term here: ";
     getline(cin, searchTerm);
+    cout << endl ;
     cout << "Search results for search term: " << searchTerm << endl;
 
     istringstream strings(searchTerm);

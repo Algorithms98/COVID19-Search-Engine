@@ -6,9 +6,6 @@
 #define CS2341_SEARCHENGINE_ALGORITHMS98_USERINTERFACE_H
 #include "SearchEngine.h"
 #include "IndexHandler.h"
-#include "DocumentParser.h"
-#include "QueryParser.h"
-#include "AVLTree.h"
 #include <stdlib.h>
 
 class UserInterface {

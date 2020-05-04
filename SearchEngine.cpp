@@ -147,7 +147,7 @@ void SearchEngine::getQuery() {
     QueryParser qp;
     userQuery = qp.getUserInput();
     bool found = qp.hasAuthor();
-    HashTable<int,string> scientists = parse.getAuthors();
+    HashTable<string,string> scientists = parse.getAuthors();
 
     //if there is one word in the Q or the search querry is just one word
     if(userQuery.size() == 1){
@@ -157,6 +157,7 @@ void SearchEngine::getQuery() {
         }
         userQuery.pop();
         displayResults(v);
+        v.clear();
     }
     else if(userQuery.front() == "not"){
         notLogic();
@@ -167,6 +168,28 @@ void SearchEngine::getQuery() {
     } else if(userQuery.front() == "or"){
         orLogic();
     } else if(found == true){
+
+        vector<pair<string, int>> v;
+        vector<pair<string, int>> arr[userQuery.size()];        //array of a vector of pairs
+
+        for(int i = 0; i < userQuery.size(); i++){
+
+            if(userQuery.front() != "author"){
+
+                if(hasWord(userQuery.front())){
+
+                    v = pullRequests(userQuery.front());
+                    arr[i ] = v;
+                    userQuery.pop();
+                    v.clear();
+                }
+            } else{
+                userQuery.pop();
+               // scientists.getIndexKey(userQuery.front());
+               // scientists.getIndexValue(userQuery.front());
+            }
+
+        }
 
     }
 
@@ -198,7 +221,30 @@ void SearchEngine::displayResults(vector <pair< string, int > > info ) {
             cout << endl;
             cout << endl;
         }
-        viewArticles();
+
+        cout << "Would you like to open the files? Y / N \n";
+        char choice;
+        cin >> choice;
+
+        locale fix;
+        choice = toupper(choice, fix );
+
+        if(choice == 'Y'){
+
+            viewArticles();
+
+        }else if(choice == 'N'){
+
+            cout << "Thank you \n";
+
+        }else{
+
+            cout << "Please enter the option Y / N \n";
+
+        }
+
+       // viewArticles();
+
         rankedArticles.clear();
 
     }
