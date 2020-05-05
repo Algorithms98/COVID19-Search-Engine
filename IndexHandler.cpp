@@ -111,10 +111,11 @@ int IndexHandler::getNumOfArticles() {
 
 void IndexHandler::displayStatistics() {
 
+    AVLTree<string> num;
     cout << "Number of total unique words is: " << numOfWordsTotal  << endl;
     cout << "Number of articles parsed is: " << numOfArtArticles << endl;
     cout << "Number of words indexed is: " << numOfIndexedWords << endl;
-    cout << "Average number of indexed words is " << endl;
+    cout << "Average number of indexed words is " << num.getTotalNodes() << endl;
     cout << "Total number of unique Authors is " << "" << endl;
 
 }

@@ -11,6 +11,9 @@
 #include <functional>
 using namespace std;
 
+/*
+ * Implementation based on Data Structures and Algorithm Analysis for C++ by Mark Allen
+ */
 
 template <class T, class P>
 class HashTable {
@@ -68,7 +71,6 @@ public:
     void display();
     int getIndexValue(T);
     int getIndexKey(T);
-
 
 };
 

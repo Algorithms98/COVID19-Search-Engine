@@ -16,7 +16,10 @@ queue<string> & QueryParser::getUserInput() {
 
     clearQ(userInput);
     cout << "Enter your search term here: ";
-    getline(cin, searchTerm);
+    while(searchTerm.size() == 0){
+        getline(cin, searchTerm);
+    }
+    //getline(cin, searchTerm);
     cout << endl ;
     cout << "Search results for search term: " << searchTerm << endl;
 

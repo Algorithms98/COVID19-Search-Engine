@@ -21,15 +21,17 @@ Words.h
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/Words.h
 
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/AVLTree.h
-vector
--
 iostream
 -
-stdexcept
+queue
+-
+list
+-
+utility
+-
+string
 -
 fstream
--
-stdlib.h
 -
 
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/DocumentParser.cpp
@@ -43,8 +45,6 @@ sstream
 -
 algorithm
 -
-vector
--
 string
 -
 dirent.h
@@ -53,6 +53,8 @@ iostream
 -
 parser.hpp
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/parser.hpp
+filesystem
+-
 
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/DocumentParser.h
 AVLTree.h
@@ -533,6 +535,10 @@ iostream
 -
 UserInterface.h
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/UserInterface.h
+set
+-
+fstream
+-
 
 /Users/princendhlovu/Desktop/CS2341-SearchEngine-Algorithms98/parser.hpp
 fstream

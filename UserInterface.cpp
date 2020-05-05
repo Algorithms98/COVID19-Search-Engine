@@ -79,7 +79,8 @@ void UserInterface::searchEngine() {
 
                     if(choice == 1){
                         SearchEngine searchE(indexH.getIndexPtr(), indexH.getNumOfArticles());
-                        searchE.getQuery();
+                        SearchEngine searchEy;
+                        searchEy.getQuery();
                         break;
                     } else if(choice == 2){
                         indexH.displayStatistics();

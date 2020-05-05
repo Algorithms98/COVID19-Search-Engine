@@ -7,14 +7,15 @@
 #include "Porter2_Stemmer.h"
 #include <sstream>
 #include <algorithm>
-#include <vector>
 #include <string>
 #include <dirent.h>
 #include <iostream>
 #include "parser.hpp"
+#include <filesystem>
 
 using namespace std;
 using nlohmann::json;
+namespace fs = std::filesystem;
 
 
 DocumentParser::DocumentParser() {
@@ -43,52 +44,80 @@ int DocumentParser::getNumOfTotalWords() {
 void DocumentParser::readDirectory() {
 
     string directoryPath;
-    cout << "Enter the name of the directory path for the Articles: ";
+    cout << "Enter the name of the directory pathfor the Articles: ";
     cin >> directoryPath;
+
 
     if(directoryPath[directoryPath.size() - 1] != '/') {
         cout << "You missed a foward slash character '/' , I have added it for you \n";
         directoryPath = directoryPath + '/';
     }
 
+
     DIR* corpus;
     struct dirent* dir;
 
     char filePath[5000];
 
-    while((corpus = opendir(directoryPath.c_str())) == nullptr){
-        cout << "Could not open file directory:" << directoryPath << endl;
-        cout << "Enter the name of the directory path  for the Articles: ";
-        cin >> directoryPath;
-    }
+    cout << "aboout \n";
+    for(auto& file: filesystem::recursive_directory_iterator(directoryPath)){
 
-    while ((dir = readdir(corpus)) != nullptr){
-        if(strncmp(dir->d_name, "..", 2)!= 0 && strncmp(dir->d_name, ".", 1) != 0){
-            string fileName = dir->d_name;
-            string fileId = fileName.substr(0, fileName.size()-5);
-            string fileExtension = fileName.substr(fileName.size() -5, fileName.size());
+        if(file.path().extension() == ".json"){
+            numOfArticles++;
+            string fileId = file.path().c_str();
+            cout << fileId << endl;
+            string tmp = file.path().c_str();
+            fileId = fileId.substr(41, tmp.size() - 15);
+            fileId = fileId.substr(0, fileId.size()-5);
+            cout << fileId << endl;
+            strncpy(filePath, directoryPath.c_str(), 5000);
+            strncat(filePath, "/",5000);
+            strncat(filePath, file.path().c_str(), 5000);
 
-            if(fileExtension == ".json"){
-                numOfArticles++;
-                strncpy(filePath, directoryPath.c_str(), 5000);
-                strncat(filePath, "/",5000);
-                strncat(filePath, dir->d_name, 5000);
-
-                cout << "About to parse a file \n";
-                if(numOfArticles <= 2){
-                    cout << fileId << endl;
-                   // int num = stoi(fileId);
-                    parseArticles(filePath, directoryPath, fileId);
-                    cout << "Parsed an article \n";
-                }
+            if(numOfArticles <= 2){
+                parseArticles(file.path().c_str(), directoryPath, fileId);
             }
-        }
 
-        if(numOfArticles == 3){
-            break;
         }
     }
-    closedir(corpus);
+
+//    while((corpus = opendir(directoryPath.c_str())) == nullptr){
+//        cout << "Could not open file directory:" << directoryPath << endl;
+//        cout << "Enter the name of the directory path  for the Articles: ";
+//        cin >> directoryPath;
+//    }
+//    cout << "before insertion \n";
+//    while ((dir = readdir(corpus)) != nullptr){
+//        cout << "inside the loop \n";
+//        cout << dir->d_name << endl;
+//
+//        if(strncmp(dir->d_name, "..", 2)!= 0 && strncmp(dir->d_name, ".", 1) != 0){
+//            string fileName = dir->d_name;
+//            string fileId = fileName.substr(0, fileName.size()-5);
+//            string fileExtension = fileName.substr(fileName.size() -5, fileName.size());
+//
+//            cout << "got this far \n";
+//            if(fileExtension == ".json"){
+//                numOfArticles++;
+//                strncpy(filePath, directoryPath.c_str(), 5000);
+//                strncat(filePath, "/",5000);
+//                strncat(filePath, dir->d_name, 5000);
+//
+//                cout << "About to parse a file \n";
+//                if(numOfArticles <= 2){
+//                    cout << fileId << endl;
+//                   // int num = stoi(fileId);
+//                    parseArticles(filePath, directoryPath, fileId);
+//                    cout << "Parsed an article \n";
+//                }
+//            }
+//        }
+//
+//        if(numOfArticles <= 2){
+//            break;
+//        }
+//    }
+//    closedir(corpus);
 }
 
 /*
